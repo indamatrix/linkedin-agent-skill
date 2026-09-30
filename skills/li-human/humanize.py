@@ -110,8 +110,9 @@ def pass_typographic(text, lex):
             text = text.replace("–", "-")
         else:
             text = text.replace(ch, entry["to"])
-    # A comma inserted before existing punctuation reads wrong.
-    text = re.sub(r",\s*([,.;:!?])", r"\1", text)
+    # A comma inserted before existing punctuation reads wrong. An ellipsis
+    # after a comma is the writer's own, so leave it.
+    text = re.sub(r",\s*([,;:!?]|\.(?!\.))", r"\1", text)
     text = re.sub(r",\s*\n", "\n", text)
     return text, hits
 
@@ -143,14 +144,16 @@ def pass_lexical(text, lex):
         text = pattern.sub(lambda m: _match_case(m.group(0), entry["replace"]), text)
     # Clean up after deletions.
     text = re.sub(r"[ \t]{2,}", " ", text)
-    text = re.sub(r"(?m)^[ \t]*([,.;:])\s*", "", text)
+    # A dot followed by another dot is an ellipsis, not debris: never strip it
+    # from a line start or pull it onto the word before.
+    text = re.sub(r"(?m)^[ \t]*([,;:]|\.(?!\.))\s*", "", text)
     # A deleted sentence leaves its full stop behind ("in. . Thoughts"). Keep
     # one mark per gap before the gap is closed up: a sentence end beats a
     # comma, and the first sentence end wins. Marks with no space between
     # them ("...") are not touched.
-    text = re.sub(r"[,;:][ \t]+(?=[.!?])", "", text)
+    text = re.sub(r"[,;:][ \t]+(?=[!?]|\.(?!\.))", "", text)
     text = re.sub(r"([.!?;:,])(?:[ \t]+[.!?;:,])+(?![.\w])", r"\1", text)
-    text = re.sub(r"\s+([,.;:!?])", r"\1", text)
+    text = re.sub(r"\s+([,;:!?]|\.(?!\.))", r"\1", text)
     text = re.sub(r"(?m)^[ \t]+$", "", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     # An em dash that became a comma, followed by a sentence connective, leaves
