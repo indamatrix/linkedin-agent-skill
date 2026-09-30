@@ -144,6 +144,12 @@ def pass_lexical(text, lex):
     # Clean up after deletions.
     text = re.sub(r"[ \t]{2,}", " ", text)
     text = re.sub(r"(?m)^[ \t]*([,.;:])\s*", "", text)
+    # A deleted sentence leaves its full stop behind ("in. . Thoughts"). Keep
+    # one mark per gap before the gap is closed up: a sentence end beats a
+    # comma, and the first sentence end wins. Marks with no space between
+    # them ("...") are not touched.
+    text = re.sub(r"[,;:][ \t]+(?=[.!?])", "", text)
+    text = re.sub(r"([.!?;:,])(?:[ \t]+[.!?;:,])+(?![.\w])", r"\1", text)
     text = re.sub(r"\s+([,.;:!?])", r"\1", text)
     text = re.sub(r"(?m)^[ \t]+$", "", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
