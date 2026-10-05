@@ -25,7 +25,9 @@ at the answers.
 - **Sentence length:** (short and punchy / mixed / long and considered)
 - **Do I swear:** (yes / mild / no)
 - **Emoji:** (never / one, rarely / freely)
-- **Contractions:** (yes - almost always yes)
+- **Contractions:** (frequent / occasional / none)
+- **Punctuation preferences:** (for example, plain quotes or no long dashes)
+- **Attribution and AI-use disclosures to preserve:**
 
 ## My positions
 

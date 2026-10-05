@@ -66,6 +66,7 @@ FRI  #21 Direct Value  The 4-question form that replaced the call. Steal it.
 Say "write Tuesday" and I will draft it.
 ```
 
-Then draft on request, one at a time, each through `/li-post` and `/li-human`.
+Then draft on request, one at a time, each through `/li-post` and `/li-human`
+for voice and clarity, preserving source attribution and disclosures.
 Do not dump four finished posts at once - they will all sound the same, and
 the user will edit none of them.

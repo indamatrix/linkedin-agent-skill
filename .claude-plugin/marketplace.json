@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "linkedin-agent",
-      "description": "Eleven Claude skills that run a LinkedIn account, including a humanizer that strips the AI fingerprint and scores the draft on a five-check panel.",
+      "description": "Eleven Claude skills for LinkedIn writing and planning, including voice editing for clarity, concision, and your punctuation preferences.",
       "source": "./",
       "category": "productivity",
       "homepage": "https://opusjake.ai/r/linkedin-agent"
