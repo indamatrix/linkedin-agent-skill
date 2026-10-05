@@ -14,34 +14,60 @@ and a short explanation of the edits, with your meaning and attribution intact.
 
 **Nothing gets posted until you say yes.** These skills write. You post.
 
-## Install
+## Install in Claude Code
 
-Paste this into Claude:
+These instructions install commands in **Claude Code**, in the environment
+where it runs. Pasting the repo URL into a regular Claude chat does not install
+files into your computer's `~/.claude/skills/` or register `/li-post` there.
+A chat sandbox is separate from your local Claude Code installation.
+
+Paste this into a Claude Code session with filesystem and network access:
 
 ```
 https://github.com/Jakeschincariol/linkedin-agent-skill
 
-Install this skill, then confirm /li-post works.
+Install the skills into ~/.claude/skills/ in this Claude Code environment.
+Report any access or download errors; do not claim success without checking
+that li-post/SKILL.md and li-post/hooks.json were installed.
 ```
 
-Or do it yourself, in Claude Code:
+Or run these commands in your terminal (Git required):
 
 ```bash
 git clone https://github.com/Jakeschincariol/linkedin-agent-skill.git
+mkdir -p ~/.claude/skills
 cp -r linkedin-agent-skill/skills/li-* ~/.claude/skills/
 ```
 
-Or as a plugin:
+Open a fresh Claude Code session in that environment. Type `/li-post` and
+check that it appears in the command menu, then invoke it with your own idea.
+A request for your writing samples is normal on first use. The optional
+`/li-human` helper script needs Python 3. See [Claude Code skills documentation](https://code.claude.com/docs/en/skills).
+
+Or run these commands inside Claude Code to install as a plugin:
 
 ```
 /plugin marketplace add Jakeschincariol/linkedin-agent-skill
 /plugin install linkedin-agent
 ```
 
+Plugin skills use a namespace: invoke `/linkedin-agent:li-post` after installation.
 Project-local instead of global: copy the same folders into your repo's
-`.claude/skills/`. No Claude Code at all? Paste any single `SKILL.md` at the
-top of a chat and it runs as a mode. `/li-human` can edit directly without
-Python; its optional local helper adds wording suggestions.
+`.claude/skills/` and open Claude Code in that project.
+
+### Using a regular Claude chat
+
+For a one-off drafting workflow, open the files on GitHub yourself and paste
+or upload `skills/li-post/SKILL.md`, `skills/li-post/hooks.json`, and your writing
+samples. Ask Claude to follow those instructions using the supplied files.
+This does not register a slash command or install the full workflow. Local
+voice/log files and Python tools are unavailable unless that chat environment
+explicitly provides them. `/li-human` can edit directly without Python; its
+optional local helper adds wording suggestions. Do not claim the helper ran
+or invent its report. If GitHub fetching is blocked, supply the files directly
+instead of retrying the install prompt.
+
+### Set your voice in Claude Code
 
 Then spend ten minutes on `templates/voice.md`. Copy it to
 `~/.claude/linkedin/voice.md` and fill it in, or paste three of your own posts
